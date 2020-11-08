@@ -1,0 +1,93 @@
+﻿<Page
+    x:Class="UWPApp.Views.IssueHistoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPApp.Views"
+    
+    xmlns:models="using:DataAccess.Models"
+    xmlns:data="using:DataAccess.Data"
+    
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="White">
+
+    <Page.Resources>
+        <CollectionViewSource x:Name="IssueCollection"/>
+    </Page.Resources>
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Current Case" FontSize="24" VerticalAlignment="Center" FontWeight="Bold"/>
+                <ComboBox x:Name="cbChangeStatus" Margin="10,0,0,0" PlaceholderText="Change Status" FontSize="24" VerticalAlignment="Center"/>
+                <Button x:Name="btnUpdateIssue" Click="btnUpdateIssue_Click" Margin="20,0,0,0" VerticalAlignment="Bottom">
+                    <TextBlock Text="Update Case" FontSize="24" />
+                </Button>
+            </StackPanel>
+            
+            <ListView x:Name="lvActive" MaxHeight="300">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Issue">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                                <TextBlock Text="Titel:" FontSize="24" Foreground="Black" Margin="0,5,0,5"/>
+                                <TextBlock Text="{x:Bind Titel}" FontSize="30" Foreground="Black"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Status:" FontSize="20" Foreground="Black"/>
+                                <TextBlock Text="{x:Bind Status}" FontSize="20" Foreground="Black" Margin="5,0,0,0"/>
+                                <TextBlock Text="Created:" FontSize="20" Foreground="Black" Margin="20,0,0,0"/>
+                                <TextBlock Text="{x:Bind Created}" FontSize="20" Foreground="Black" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="2" Grid.Column="0">
+            <TextBlock Text="Finished Cases:" FontSize="32" Margin="0,20,0,0" FontWeight="Bold"/>
+            <ListView x:Name="lvClosed" MaxHeight="300">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Issue">
+                        <StackPanel>
+                            <TextBlock Text="{x:Bind Titel}" FontSize="30" Foreground="Black"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{x:Bind Status}" FontSize="20" Foreground="Black" Margin="0,0,20,0"/>
+                                <TextBlock Text="{x:Bind Created}" FontSize="20" Foreground="Black"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0" Background="white">
+            <StackPanel Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedItem, ElementName=lvActive}">
+                <TextBlock Text="Detaild Information:" FontSize="32" Margin="0,0,0,20" FontWeight="Bold" />
+                <StackPanel Margin="0,0,0,5">
+                    <TextBlock  Text="Client:" FontSize="24" Foreground="Black" Margin="5,5" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding customer.Name}" FontSize="20" Foreground="Black" Margin="5,5"/>
+                    <TextBlock Text="Category:" FontSize="24" Foreground="Black" Margin="5,5" FontWeight="Bold" />
+                    <TextBlock Text="{Binding Category}" FontSize="20" Foreground="Black" Margin="5,5"/>
+                    <TextBlock Text="Description:" FontSize="24" Foreground="Black" Margin="5,5" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Description}" FontSize="30" Foreground="Black" Padding="10"/>
+                </StackPanel>
+            </StackPanel>
+
+
+        </StackPanel>
+        
+    </Grid>
+</Page>
