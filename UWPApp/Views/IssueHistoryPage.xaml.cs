@@ -36,7 +36,6 @@ namespace UWPApp.Views
             this.InitializeComponent();
             LoadIssuesAsync().GetAwaiter();
             LoadStatusAsync().GetAwaiter();
-            //ViewModel = new IssueViewModel();
         }
         public async Task LoadIssuesAsync()
         {
