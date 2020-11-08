@@ -46,7 +46,7 @@ namespace UWPApp.Views
         private void LoadActiveIssuesAsync()
         {
             lvActive.ItemsSource = issues
-                .Where(i => i.Status != "Pågående")
+                .Where(i => i.Status != "New")
                 .OrderByDescending(i => i.Created)
                 .Take(SettingsContext.GetMaxItemsCount())
                 .ToList();
